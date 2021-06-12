@@ -1,3 +1,5 @@
+@import '../../../lessVariables/variables';
+
 .logo {
     img {
         width: 60px;
@@ -6,10 +8,20 @@
 }
 .footer{
     text-align: center;
+    color: #eee;
 }
 
 .header{
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
+    width: 90%;
+    margin: auto;
+}
+.signInButton{
+    margin-right: 10px!important;
+}
+
+.bgFooter{
+    background-color: @secondary-color;
 }
