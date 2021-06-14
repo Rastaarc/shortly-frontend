@@ -10,15 +10,15 @@ export default function MainLayout({children}) {
         <>
             <Layout>
                 <Header style={{padding: 0}} className="bgMain">
-                    <div className="header">
+                    <div className="header container">
                         <div className="logo">
                             <img src="images/logo.png" alt="" />
                         </div>
-                        <div>
+                        <div className="header__right-side">
                             <span className="signInButton">
                             <Button type="primary" shape="round">Sign In</Button>
                             </span>
-                            <Button type="ghost" shape="round">Sign Up</Button>
+                            <Button type="ghost" className="color-primary" shape="round">Sign Up</Button>
                         </div>
                     </div>
                 </Header>

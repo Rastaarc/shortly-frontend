@@ -1,4 +1,6 @@
 @import 'antd/dist/antd.less';
+@import './lessVariables/variables';
+
 
 html,body, *{
   margin: 0;
@@ -17,7 +19,11 @@ body{
 
 
 .container{
-  width: 90%;
+  width: 100%;
   margin: auto;
+  max-width: 1300px;
+  @media (max-width: @laptop){
+    width: 90%;
+  }
 }
 

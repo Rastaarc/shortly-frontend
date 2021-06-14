@@ -4,6 +4,10 @@
     img {
         width: 60px;
         height: 60px;
+        @media (max-width: @mobile-large){
+            width: 45px;
+            height: 45px;
+        }
     }
 }
 .footer{
@@ -15,13 +19,25 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    width: 90%;
-    margin: auto;
 }
 .signInButton{
     margin-right: 10px!important;
 }
+.header__right-side{
+    @media (max-width: @mobile-large) {
+        button{
+            height: 24px;
+            padding: 0px 12px;
+            font-size: 14px;
+            border-radius: 24px;
+        }
+    }
+}
 
 .bgFooter{
     background-color: @secondary-color;
+}
+
+.color-primary{
+    color: @primary-color!important;
 }
