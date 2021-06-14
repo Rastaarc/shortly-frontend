@@ -13,9 +13,33 @@ import { DEVELOPED_BY } from '../../../utilities/constants'
 
 const {Title }  = Typography
 export default function LandingPage() {
+    const [shortenBtnText, setshortenBtnText] = useState('Shorten It')
     const [urlValue, setUrlValue] = useState("")
+    const [spinLoading, setspinLoading] = useState(false)
+
     const updateUrlValue = (e) => {
       setUrlValue(e.target.value)
+    }
+    const shortenUrl = (e) => {
+      if(!spinLoading && shortenBtnText !== 'Copy'){
+        setspinLoading(true)
+        setshortenBtnText('Loading')
+
+        setTimeout(()=>
+        {
+          setspinLoading(false);
+          const val = document.getElementById("url__input")
+          val.select(); //select the input value
+          setshortenBtnText('Copy')
+
+      }, 3000)
+
+      }else if(shortenBtnText === 'Copy'){
+        document.execCommand('copy'); //copy to clipboard
+        setshortenBtnText('Shorten It')
+        setUrlValue('')
+      }
+
     }
     return (
         <>
@@ -49,6 +73,7 @@ export default function LandingPage() {
                   <Row style={{margin: "15px 0"}} justify="center">
                     <Col xs={{span: 24 }} md={{span: 19}}>
                       <input className="url__input"
+                          id="url__input"
                           type="text"
                           placeholder="Type or paste a link to shorten"
                           value={urlValue}
@@ -57,7 +82,7 @@ export default function LandingPage() {
                     </Col>
                     <Col xs={{span: 24 }} md={{span: 5}} >
                       <div className="button__wrapper">
-                        <Button type="secondary">Shorten It</Button>
+                        <Button loading={spinLoading} onClick={(e)=> shortenUrl(e)} type="default">{shortenBtnText}</Button>
                       </div>
                     </Col>
                   </Row>
@@ -109,7 +134,7 @@ export default function LandingPage() {
                     <h1 className="creator__heading"><span className="strip__overline"></span>TEAMS<span className="strip__underline"></span></h1>
                     <div className="creator__body">
                       <div className="creator__avatar">
-                        <Avatar size={250} src="/images/creator_img.jpg" />
+                        <Avatar size={200} src="/images/creator_img.jpg" />
                       </div>
                       <div className="creator__details">
                         <h1 className="details__head">Creator</h1>
