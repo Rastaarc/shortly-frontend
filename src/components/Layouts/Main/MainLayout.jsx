@@ -32,7 +32,7 @@ export default function MainLayout({children}) {
                     <Footer className="bgFooter">
                         <div className="footer">
                             &copy; {new Date().getFullYear()}, {APP_NAME}.
-                            All right reserved. Made with <HeartFilled style={{color: 'red'}}/> by { DEVELOPED_BY }
+                            All right reserved. Made with <HeartFilled style={{color: '#eee'}}/> by { DEVELOPED_BY }
                         </div>
                     </Footer>
                 </Layout>
