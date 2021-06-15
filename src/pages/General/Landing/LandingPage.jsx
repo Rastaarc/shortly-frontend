@@ -21,7 +21,7 @@ export default function LandingPage() {
       setUrlValue(e.target.value)
     }
     const shortenUrl = (e) => {
-      if(!spinLoading && shortenBtnText !== 'Copy'){
+      if(!spinLoading && shortenBtnText !== 'Copy' && urlValue.length > 4){
         setspinLoading(true)
         setshortenBtnText('Loading')
 
