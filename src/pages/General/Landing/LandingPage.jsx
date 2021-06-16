@@ -40,7 +40,11 @@ export default function LandingPage() {
             const val = document.getElementById("url__input")
             val.select(); //select the input value
             setshortenBtnText('Copy')
-          }).catch(e=> console.log(e))
+          }).catch(e=> {
+            setspinLoading(false);
+            setshortenBtnText('Shorten It')
+            console.log(e)
+          })
 
       }else if(shortenBtnText === 'Copy'){
         document.execCommand('copy'); //copy to clipboard
