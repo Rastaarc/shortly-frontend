@@ -7,6 +7,10 @@ import {
   Avatar,
  } from 'antd'
 import { useState } from 'react'
+import {
+  CREATE_FREE_LINK
+} from '../../../graphql/queries'
+import client from '../../../graphql/client'
 import './LandingPage.less'
 import MainLayout from '../../../components/Layouts/Main/MainLayout'
 import { DEVELOPED_BY } from '../../../utilities/constants'
@@ -20,19 +24,23 @@ export default function LandingPage() {
     const updateUrlValue = (e) => {
       setUrlValue(e.target.value)
     }
-    const shortenUrl = (e) => {
+    const shortenUrl = async (e) => {
       if(!spinLoading && shortenBtnText !== 'Copy' && urlValue.length > 4){
         setspinLoading(true)
         setshortenBtnText('Loading')
 
-        setTimeout(()=>
-        {
-          setspinLoading(false);
-          const val = document.getElementById("url__input")
-          val.select(); //select the input value
-          setshortenBtnText('Copy')
-
-      }, 3000)
+        await client.mutate(
+          {
+            mutation: CREATE_FREE_LINK,
+            variables: {theLink: urlValue}
+          }).then((result)=> {
+            console.log(result)
+            setspinLoading(false);
+            setUrlValue(result.data.createFreemiumLink.link.shortLink)
+            const val = document.getElementById("url__input")
+            val.select(); //select the input value
+            setshortenBtnText('Copy')
+          }).catch(e=> console.log(e))
 
       }else if(shortenBtnText === 'Copy'){
         document.execCommand('copy'); //copy to clipboard
