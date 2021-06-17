@@ -18,4 +18,20 @@ export const CREATE_FREE_LINK = gql`
                 message
             }
         }
-`
+`;
+
+export const CREATE_ACCOUNT = gql`
+
+        mutation CreateAccount($username: String!, $email: String!, $password: String!){
+            createAccount(accountData: {username: $username, email: $email, password: $password}){
+                user {
+                    id
+                    username
+                    email
+                    joinDate
+                }
+                ok
+                message
+            }
+        }
+`;

@@ -86,9 +86,10 @@
         border-radius: 15px;
         height: 50px;
         text-align: center;
-        box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+        box-shadow: inset 0px -3px 3px @shadow-color;
     }
     &:focus{
+        box-shadow: none;
         border: 1px solid @secondary-color;
     }
 }
@@ -101,6 +102,9 @@
     width: 100%;
     padding-left: 10px;
     padding-right: 0px;
+    @media (max-width: @mobile-large){
+        margin-top: 10px;
+    }
     button{
         box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
         width: 100%;
@@ -118,7 +122,7 @@
             background-color:transparent;
             color: @secondary-color;
             justify-content: center;
-            margin-top: 5px;
+            margin-top: 10px;
             min-width: 40%;
             width: 30%;
             margin: auto;

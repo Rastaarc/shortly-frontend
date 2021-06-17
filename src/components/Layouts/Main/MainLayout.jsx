@@ -1,6 +1,9 @@
-import React from 'react'
 import { Layout, Button } from 'antd'
 import { APP_NAME, DEVELOPED_BY } from '../../../utilities/constants'
+import {
+    Link
+} from 'react-router-dom'
+
 import {
     HeartFilled,
 } from '@ant-design/icons'
@@ -15,13 +18,17 @@ export default function MainLayout({children}) {
                 <Header style={{padding: 0}} className="bgMain">
                     <div className="header container">
                         <div className="logo">
-                            <img src="images/logo.png" alt="" />
+                            <Link to="/"><img src="images/logo.png" alt="" /></Link>
                         </div>
                         <div className="header__right-side">
                             <span className="signInButton">
-                            <Button type="primary" shape="round">Sign In</Button>
+                            <Link to="/login">
+                                <Button type="primary" shape="round">Sign In</Button>
+                            </Link>
                             </span>
-                            <Button type="ghost" className="color-primary" shape="round">Sign Up</Button>
+                            <Link to="/signup">
+                                <Button type="ghost" className="color-primary" shape="round">Sign Up</Button>
+                            </Link>
                         </div>
                     </div>
                 </Header>
@@ -31,7 +38,7 @@ export default function MainLayout({children}) {
                 <Layout>
                     <Footer className="bgFooter">
                         <div className="footer">
-                            &copy; {new Date().getFullYear()}, {APP_NAME}.
+                            &copy;{new Date().getFullYear()}, {APP_NAME}.
                             All right reserved. Made with <HeartFilled style={{color: '#eee'}}/> by { DEVELOPED_BY }
                         </div>
                     </Footer>

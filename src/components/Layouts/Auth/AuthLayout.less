@@ -1,0 +1,40 @@
+@import '../../../lessVariables/variables';
+
+.auth__layout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10% auto;
+
+
+    .container{
+        max-width: 500px;
+        width: 100%;
+
+        @media (max-width: @mobile-large){
+            max-width: 90%;
+        }
+    }
+
+    .logo__auth{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        a {
+            margin-bottom: 10px;
+            text-align: center;
+            img{
+                width: 20%;
+            }
+        }
+    }
+    .card__contents{
+        background-color: @white-color;
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 1px;
+        box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.17) !important;
+    }
+}
