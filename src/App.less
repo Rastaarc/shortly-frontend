@@ -9,7 +9,7 @@ html,body, *{
 }
 
 .bgMain{
-  background-color: #f4f4f4;
+  background-color: @background-color;
 }
 
 body{
@@ -28,3 +28,15 @@ body{
   }
 }
 
+.has__error-text{
+    color: @error-color;
+    align-self: flex-start;
+    text-align: left;
+    margin-top: -5px;
+}
+.has__error-input{
+    border: 1px solid @error-color!important;
+}
+.has__success-input{
+    border: 1px solid @success-color;
+}

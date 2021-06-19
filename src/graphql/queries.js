@@ -21,17 +21,28 @@ export const CREATE_FREE_LINK = gql`
 `;
 
 export const CREATE_ACCOUNT = gql`
-
         mutation CreateAccount($username: String!, $email: String!, $password: String!){
             createAccount(accountData: {username: $username, email: $email, password: $password}){
-                user {
-                    id
-                    username
-                    email
-                    joinDate
-                }
                 ok
                 message
             }
         }
 `;
+
+export const LOGIN_ACCOUNT = gql`
+        mutation LoginAccount($emailOrUsername: String!, $password: String!){
+            loginAccount(usernameOrEmail: $emailOrUsername, password: $password){
+                token
+                user{
+                    id
+                    username
+                    email
+                    joinDate
+                    userType
+
+                }
+                loggedIn
+                message
+            }
+        }
+`

@@ -1,0 +1,43 @@
+@import '../../../lessVariables/variables';
+
+.dashboard__header{
+    background-color: @white-color;
+}
+
+.dashboard__sider{
+    padding: 0 5px;
+    background-color: @white-color;
+
+    .sider__contents{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+
+        .sider__logo{
+            margin-bottom: 50px;
+            a{
+                img{
+                    height: 80px;
+                    width: 80px;
+                }
+            }
+
+        }
+
+        .sider__menu{
+            align-self: flex-start;
+            padding-left: 15px;
+        }
+
+
+    }
+}
+
+.contents__container{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+}

@@ -5,6 +5,7 @@ import {
   Typography,
   Card,
   Avatar,
+  message,
  } from 'antd'
 import { useState } from 'react'
 import {
@@ -34,16 +35,22 @@ export default function LandingPage() {
             mutation: CREATE_FREE_LINK,
             variables: {theLink: urlValue}
           }).then((result)=> {
-            console.log(result)
+            const resultHolder = result.data.createFreemiumLink;
             setspinLoading(false);
             setUrlValue(result.data.createFreemiumLink.link.shortLink)
+            if(resultHolder.ok && resultHolder.message){
+              message.success(resultHolder.message,5)
+            }else{
+              message.error(resultHolder.message,5)
+            }
+
             const val = document.getElementById("url__input")
             val.select(); //select the input value
             setshortenBtnText('Copy')
           }).catch(e=> {
             setspinLoading(false);
             setshortenBtnText('Shorten It')
-            console.log(e)
+            message.error('Error Occurred while creating your link. Please try again', 5)
           })
 
       }else if(shortenBtnText === 'Copy'){
@@ -63,7 +70,7 @@ export default function LandingPage() {
                       <Title type={1} className="landingHeadingText desktop__landing-heading">
                         When
                         <br/>
-                        <span style={{color: '#f16059'}}>Shortly,</span> the better
+                        <span style={{color: '#f16059'}}>Shortly,</span><br/>the better
                       </Title>
                       <Title type={1} className="landingHeadingText mobile__landing-heading">
                         When <span style={{color: '#f16059'}}>Shortly</span>
@@ -154,7 +161,10 @@ export default function LandingPage() {
                           Adelola, Kayode Samson
                           <span>A 400L student of Better By Far University
                             (University of Ilorin, Ilorin Kwara State Nigeria)
-                            studying Mathematics (BSc. Mathematics).
+                            studying Mathematics (BSc. Mathematics) and popularly known as <b>Rasta</b>.
+                            He a Graphics Designer, FullStack Developer using Python(Flask) for backend,
+                            NuxtJS(VueJs SSR) and React for Frontend. He is well equiped with modern frameworks
+                            both for frontend and backend.
                             </span>
                           </p>
                       </div>
