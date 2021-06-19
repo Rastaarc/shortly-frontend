@@ -31,7 +31,7 @@ export default function Login({history}) {
     const processLogin = async ()=>{
         setProcessingLogin(true)
 
-        client.mutate({
+        await client.mutate({
             mutation: LOGIN_ACCOUNT,
             variables: {
                 emailOrUsername,
