@@ -1,5 +1,5 @@
 import React from 'react'
-import usePageTitle from '../../../../components/hooks/title'
+import usePageTitle from '../../../components/hooks/title'
 import './Overview.less'
 
 

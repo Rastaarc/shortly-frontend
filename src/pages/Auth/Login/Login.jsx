@@ -44,7 +44,7 @@ export default function Login({history}) {
                 message.success("Account Logged in successfully", 4)
                 const accountData = JSON.stringify({user: account.user, token: account.token})
                 localStorage.setItem("account", accountData)
-                history.replace('/')
+                history.replace('/dashboard')
             }else{
                 message.error(account.message,4)
             }

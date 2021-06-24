@@ -26,3 +26,12 @@ export const useUserLoggedIn = ()=>{
 
     return userLoggedIn
 }
+export const logoutAccount = ()=> {
+    try{
+        localStorage.removeItem("account")
+        return true
+    }catch(e){
+        console.log(e.message)
+        return false
+    }
+}

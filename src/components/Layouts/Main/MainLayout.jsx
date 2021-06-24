@@ -1,5 +1,5 @@
 //import { useEffect } from 'react'
-import { Layout, Button } from 'antd'
+import { Layout, Button, message } from 'antd'
 import { APP_NAME, DEVELOPED_BY } from '../../../utilities/constants'
 import {
     Link
@@ -9,15 +9,25 @@ import {
     HeartFilled,
 } from '@ant-design/icons'
 import './MainLayout.less'
-import { /*useAuth,*/ useUserLoggedIn } from '../../hooks/auth'
-
+import { /*useAuth,*/ useUserLoggedIn, logoutAccount } from '../../hooks/auth'
+import {useHistory} from 'react-router-dom'
 
 const { Header, Footer } = Layout
 
 export default function MainLayout({children}) {
     //const userData = useAuth()
     const userLoggedIn = useUserLoggedIn()
+    const history = useHistory()
 
+    const doLogout = (e)=>{
+        console.log(history);
+        e.preventDefault()
+        if(logoutAccount()){
+            history.push('/')
+        }else{
+            message.error("Failed to logged out your account, please try again",4)
+        }
+    }
     return (
         <>
             <Layout>
@@ -29,9 +39,9 @@ export default function MainLayout({children}) {
                         <div className="header__right-side">
                             {userLoggedIn?
                             (<div className="loggedin__side">
-                                <Link style={{paddingRight: 10}} to="/dashboard">DASHBOARD</Link>
+                                <Link to="/dashboard">Dashboard</Link>
 
-                                <Link to="/dashboard">LOGOUT</Link>
+                                <Link to="/logout" onClick={e=>doLogout(e)}>Logout</Link>
                             </div>) :
                             (<div>
                                 <span className="signInButton">

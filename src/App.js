@@ -11,8 +11,9 @@ import Register from './pages/Auth/Register/Register';
 import Login from './pages/Auth/Login/Login';
 import PageNotFound from './pages/Errors/PageNotFound/PageNotFound';
 import Dashboard from './pages/Dashboard/Dashboard'
-import OverviewAdmin from './pages/Dashboard/Admin/Overview/OverviewAdmin'
-import Overview from './pages/Dashboard/Users/Overview/Overview'
+import Links from './pages/Links/Links'
+import Subscriptions from './pages/Subscriptions/Subscriptions';
+
 
 function App() {
   return (
@@ -28,12 +29,9 @@ function App() {
 
         {/****************DASHBOARD*********************/}
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/links" component={Links} />
+        <Route exact path="/subscriptions" component={Subscriptions} />
 
-        {/****************USERS DASHBOARD*********************/}
-        <Route exact path="/overview" component={Overview} />
-
-        {/****************ADMIN DASHBOARD*********************/}
-        <Route exact path="/admin/overview" component={OverviewAdmin} />
 
         {/****************ERRORS*********************/}
         <Route path="*" component={PageNotFound} />

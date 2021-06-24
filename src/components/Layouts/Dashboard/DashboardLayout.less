@@ -5,8 +5,11 @@
 }
 
 .dashboard__sider{
-    padding: 0 5px;
     background-color: @white-color;
+
+    @media screen and (max-width: @mobile-large) {
+        display: none;
+    }
 
     .sider__contents{
         display: flex;
@@ -19,16 +22,40 @@
             margin-bottom: 50px;
             a{
                 img{
-                    height: 80px;
-                    width: 80px;
+                    height: 100px;
+                    width: 100px;
+
+                    @media(max-width: @tablet){
+                        height: 80px;
+                        width: 80px;
+                    }
                 }
             }
 
         }
 
-        .sider__menu{
+        .sider {
             align-self: flex-start;
-            padding-left: 15px;
+            width: 100%;
+
+            .sider__menu{
+                align-self: flex-start;
+                list-style: none;
+                line-height: 3;
+                width: 100%;
+
+                li{
+                    margin: 10px 0;
+                    padding: 0 15px;
+                    width: 100%;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                }
+                .active{
+                    background-color: @off-white-color;
+                    border-right: 4px solid @primary-color;
+                }
+            }
         }
 
 
