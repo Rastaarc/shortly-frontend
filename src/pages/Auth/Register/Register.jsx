@@ -67,7 +67,7 @@ function Register({history}) {
                 setPassword(value)
                 validateInput('cpassword', {p1: value, p2: confirmPassword})
                  //PASSWORD VALIDATION
-                const passwordReg = /^\w{5,30}$/
+                const passwordReg = /^[a-zA-Z_@]{5,30}$/
                 if(!passwordReg.test(password)){
                     setPasswordError(-1)
                 }else{
@@ -165,7 +165,7 @@ function Register({history}) {
                             onBlur={(e)=> validateInput(e.target.name,e.target.value)}
                             />
                         {(passwordError < 0) && <span className="has__error-text">
-                            Please enter a minimum of 5 characters for your password
+                            Please enter a valid password with a minimum of 5 characters for your password
                             </span>}
 
                         <Input

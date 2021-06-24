@@ -3,10 +3,13 @@ import DashboardLayout from '../../components/Layouts/Dashboard/DashboardLayout'
 import LinksAdmin from './Admin/LinksAdmin'
 import LinksUser from './User/LinksUser'
 import { USERTYPES } from '../../utilities/constants'
-import { useAuth } from '../../components/hooks/auth'
+import { useAccount, useAuth } from '../../components/hooks/auth'
+import usePageTitle from '../../components/hooks/title'
 
 function Links() {
-    const {user: {userType}} = useAuth()
+    useAuth()
+    const {user: {userType}} = useAccount()
+    usePageTitle('Links')
     return (
         <DashboardLayout>
             {(userType === USERTYPES.ADMIN)? <LinksAdmin/> : <LinksUser/>}

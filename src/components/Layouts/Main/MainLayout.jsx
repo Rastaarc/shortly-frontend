@@ -10,20 +10,17 @@ import {
 } from '@ant-design/icons'
 import './MainLayout.less'
 import { /*useAuth,*/ useUserLoggedIn, logoutAccount } from '../../hooks/auth'
-import {useHistory} from 'react-router-dom'
 
 const { Header, Footer } = Layout
 
 export default function MainLayout({children}) {
     //const userData = useAuth()
-    const userLoggedIn = useUserLoggedIn()
-    const history = useHistory()
+    const [userLoggedIn, setUserLoggedIn] = useUserLoggedIn()
 
     const doLogout = (e)=>{
-        console.log(history);
         e.preventDefault()
         if(logoutAccount()){
-            history.push('/')
+            setUserLoggedIn(false)
         }else{
             message.error("Failed to logged out your account, please try again",4)
         }

@@ -13,7 +13,7 @@ import PageNotFound from './pages/Errors/PageNotFound/PageNotFound';
 import Dashboard from './pages/Dashboard/Dashboard'
 import Links from './pages/Links/Links'
 import Subscriptions from './pages/Subscriptions/Subscriptions';
-
+import Users from './pages/Users/Users';
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/links" component={Links} />
         <Route exact path="/subscriptions" component={Subscriptions} />
+        <Route exact path="/users" component={Users} />
 
 
         {/****************ERRORS*********************/}

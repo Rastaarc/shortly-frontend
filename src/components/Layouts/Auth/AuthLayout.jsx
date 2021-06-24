@@ -4,19 +4,19 @@ import { Link, Redirect } from 'react-router-dom'
 import { Layout, message } from 'antd'
 import { APP_NAME, DEVELOPED_BY } from '../../../utilities/constants'
 import { HeartFilled } from '@ant-design/icons'
-import { useAuth, useUserLoggedIn } from '../../hooks/auth'
+import { useAccount, useUserLoggedIn } from '../../hooks/auth'
 const { Footer } = Layout
 
 function AuthLayout({children, match}) {
 
-    const auth = useAuth()
-    const userLoggedIn = useUserLoggedIn()
+    const account = useAccount()
+    const [userLoggedIn] = useUserLoggedIn()
 
     useEffect(() => {
         if(userLoggedIn){
-            message.error(`You have already loggedin as ${auth.user.username}`,4)
+            message.error(`You have already loggedin as ${account.user.username}`,4)
         }
-    }, [auth, match, userLoggedIn])
+    }, [userLoggedIn, account])
 
     return userLoggedIn ? <Redirect to="/"/> : (
         <div className="auth__layout">

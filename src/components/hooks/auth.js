@@ -1,31 +1,42 @@
 import { useEffect, useState } from "react"
-export const useAuth = ()=>{
-    const [auth, setAuth] = useState(JSON.parse(localStorage.getItem("account")))
+export const useAccount = ()=>{
+    const [account, setAccount] = useState(JSON.parse(localStorage.getItem("account")))
 
     useEffect(()=>{
-        setAuth(JSON.parse(localStorage.getItem("account")))
+        setAccount(JSON.parse(localStorage.getItem("account")))
     },[])
-    return auth
+    return account
 }
 
 export const useUserLoggedIn = ()=>{
-    const auth = useAuth()
+    const account = useAccount()
     const [userLoggedIn, setUserLoggedIn] = useState(()=>{
-        return auth ? true : false
+        return account ? true : false
     })
 
     useEffect(() => {
-        if(auth){
+        if(account){
             setUserLoggedIn(true)
         }else{
             setUserLoggedIn(false)
         }
         return () => {
         }
-    }, [auth])
+    }, [account])
 
-    return userLoggedIn
+    return [userLoggedIn, setUserLoggedIn]
 }
+
+export const useAuth = () =>{
+    const [userLoggedIn] = useUserLoggedIn()
+    if(!userLoggedIn){
+        window.location.replace('/login')
+    }
+}
+
+
+
+
 export const logoutAccount = ()=> {
     try{
         localStorage.removeItem("account")

@@ -2,16 +2,20 @@ import React from 'react'
 import SubscriptionsUser from './User/SubscriptionsUser'
 import SubscriptionsAdmin from './Admin/SubscriptionsAdmin'
 import { USERTYPES } from '../../utilities/constants'
-import { useAuth } from '../../components/hooks/auth'
+import { useAccount, useAuth } from '../../components/hooks/auth'
+import DashboardLayout from '../../components/Layouts/Dashboard/DashboardLayout'
+import usePageTitle from '../../components/hooks/title'
 
 
 
 function Subscriptions() {
-    const {user: {userType}} = useAuth()
+    useAuth()
+    const {user: {userType}} = useAccount()
+    usePageTitle("Subscriptions")
     return (
-        <div>
+        <DashboardLayout>
             {(userType === USERTYPES.ADMIN)? <SubscriptionsAdmin/> : <SubscriptionsUser/>}
-        </div>
+        </DashboardLayout>
     )
 }
 
