@@ -4,6 +4,9 @@ import { FaLink, FaTachometerAlt } from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 import { GET_USER_LINKS } from '../../../graphql/queries'
 import { useAccount } from '../../../hooks/auth'
+import { FaEllipsisV } from 'react-icons/fa'
+import ListLink from '../../../components/General/ListItems/ListLink'
+
 import './Overview.less'
 
 
@@ -12,6 +15,7 @@ export default function Home() {
     const account = useAccount()
     const [linksData, setLinksData] = useState([])
     const [errorOccured, setErrorOccurred] = useState(false)
+    //const [totalLinks, setTotalLinks] = useState(0)
 
     const {loading, error, data} = useQuery(GET_USER_LINKS, {
         variables:{
@@ -80,23 +84,24 @@ export default function Home() {
                             errorOccured ?
                                 loadErrorMessage
                             :
-
-                                    linksData.map(l=>
-                                    {
-                                        return (<div className="links" key={l.id}><div className="link">
-                                            <a href={l.shortLink} target="_blank" rel="noreferrer">
-                                                {l.shortLink}
-                                            </a>
-                                            <span>{l.originalLink}</span>
-                                            </div>
-
-                                        </div>
-                                        )
-                                    })
+                            linksData.length > 0 ?
+                                linksData.map(item => {
+                                    return <ListLink
+                                        key={item.id}
+                                        short={item.shortLink}
+                                        long={item.originalLink}
+                                        icon={<FaEllipsisV/>}/>
+                                    }
+                                )
+                            :
+                                "No Data to display"
                         }
                     </div>
                     <div className="card">
                         <h5 className="title">Subscriptions</h5>
+                        <h2 className="text--center primary--text">
+                            Coming Soon!
+                        </h2>
                     </div>
                 </div>
             </div>

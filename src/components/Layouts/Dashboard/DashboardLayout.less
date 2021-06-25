@@ -14,10 +14,13 @@
         padding: 0 20px;
         align-items: center;
         z-index: 1000;
+        height: 75px;
+        box-shadow: 0 1px 3px @shadow-color2;
     }
 
     .header__logo__mobile{
         display: none;
+        width: 100%;
 
         @media(max-width: @mobile-large){
             display: block;
@@ -35,6 +38,8 @@
 
         @media(max-width: @mobile-large){
             order: 3;
+            display: flex;
+            justify-content: flex-end;
         }
 
         .user{
@@ -88,6 +93,14 @@
 
     .header__content{
         order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        @media(max-width: @mobile-large){
+            justify-content: center;
+        }
     }
 }
 
@@ -266,7 +279,7 @@
     // margin: 0 auto;
 
     @media(max-width: @mobile-large){
-        margin-top: 68px;
+        margin-top: 85px;
     }
 }
 
