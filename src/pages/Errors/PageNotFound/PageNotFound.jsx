@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Result, Button } from 'antd'
 import MainLayout from '../../../components/Layouts/Main/MainLayout'
-import usePageTitle from '../../../components/hooks/title'
+import usePageTitle from '../../../hooks/title'
 function PageNotFound() {
     usePageTitle("404")
     return (

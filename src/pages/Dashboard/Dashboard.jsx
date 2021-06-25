@@ -1,6 +1,6 @@
 //import { useEffect } from 'react'
-import { useAccount, useAuth } from '../../components/hooks/auth'
-import usePageTitle from '../../components/hooks/title'
+import { useAccount, useAuth } from '../../hooks/auth'
+import usePageTitle from '../../hooks/title'
 import DashboardLayout from '../../components/Layouts/Dashboard/DashboardLayout'
 import Overview from './Users/Overview'
 import OverviewAdmin from './Admin/OverviewAdmin'
@@ -15,7 +15,6 @@ function Dashboard() {
     const {user: {userType }} = useAccount()
     return (
         <DashboardLayout>
-
             {(userType === USERTYPES.ADMIN) ? <OverviewAdmin/> : <Overview/>}
         </DashboardLayout>
     )

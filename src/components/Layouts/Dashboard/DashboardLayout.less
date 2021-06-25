@@ -2,6 +2,8 @@
 
 .dashboard__header{
     background-color: @white-color;
+    display: flex;
+    justify-content: space-between;
 
     @media(max-width: @mobile-large){
         position: fixed;
@@ -10,23 +12,82 @@
         min-width: 100%;
         max-width: 100%;
         padding: 0 20px;
-        display: flex;
-        justify-content: space-between;
         align-items: center;
         z-index: 1000;
     }
 
-    .header__logo{
+    .header__logo__mobile{
         display: none;
 
         @media(max-width: @mobile-large){
             display: block;
-
+            order: 1;
             img{
                 height: 50px;
                 width: 50px;
             }
         }
+    }
+
+    .header__user{
+        order: 1;
+        width: 100%;
+
+        @media(max-width: @mobile-large){
+            order: 3;
+        }
+
+        .user{
+            display: flex;
+            align-items: center;
+            height: 100%;
+
+            @media(max-width: @mobile-large){
+                display: none;
+            }
+
+            svg{
+                font-size: 48px;
+                color: @secondary-color;
+            }
+
+            .profile{
+                margin-left: 10px;
+                display: flex;
+                flex-direction: column;
+
+                p{
+                    margin: 0;
+                    padding: 0;
+                    height: 15px;
+                }
+                .username{
+                    font-size: 19px;
+                    font-weight: bold;
+                    color: @secondary-color;
+                }
+                .email{
+                    padding-top: 5px;
+                    font-size: 11px;
+                    color: @error-color;
+                }
+            }
+
+        }
+        
+        .user__mobile{
+            display: none;
+
+            @media(max-width: @mobile-large){
+                display: flex;
+            }
+
+
+        }
+    }
+
+    .header__content{
+        order: 2;
     }
 }
 
@@ -179,6 +240,12 @@
                         margin: 0;
                         margin-left: 5px;
                         font-weight: 700;
+                    }
+                }
+
+                .logout{
+                    svg{
+                        cursor: pointer;
                     }
                 }
 

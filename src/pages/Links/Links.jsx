@@ -3,8 +3,8 @@ import DashboardLayout from '../../components/Layouts/Dashboard/DashboardLayout'
 import LinksAdmin from './Admin/LinksAdmin'
 import LinksUser from './User/LinksUser'
 import { USERTYPES } from '../../utilities/constants'
-import { useAccount, useAuth } from '../../components/hooks/auth'
-import usePageTitle from '../../components/hooks/title'
+import { useAccount, useAuth } from '../../hooks/auth'
+import usePageTitle from '../../hooks/title'
 
 function Links() {
     useAuth()

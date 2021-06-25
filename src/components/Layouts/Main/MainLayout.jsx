@@ -1,20 +1,15 @@
 //import { useEffect } from 'react'
 import { Layout, Button, message } from 'antd'
 import { APP_NAME, DEVELOPED_BY } from '../../../utilities/constants'
-import {
-    Link
-} from 'react-router-dom'
-
-import {
-    HeartFilled,
-} from '@ant-design/icons'
+import { Link } from 'react-router-dom'
+import { HeartFilled } from '@ant-design/icons'
+import { useUserLoggedIn, logoutAccount } from '../../../hooks/auth'
 import './MainLayout.less'
-import { /*useAuth,*/ useUserLoggedIn, logoutAccount } from '../../hooks/auth'
 
 const { Header, Footer } = Layout
 
 export default function MainLayout({children}) {
-    //const userData = useAuth()
+
     const [userLoggedIn, setUserLoggedIn] = useUserLoggedIn()
 
     const doLogout = (e)=>{

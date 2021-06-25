@@ -9,7 +9,7 @@ import {
 import { Link } from 'react-router-dom'
 import client from '../../../graphql/client'
 import { CREATE_ACCOUNT } from '../../../graphql/queries'
-import usePageTitle from '../../../components/hooks/title'
+import usePageTitle from '../../../hooks/title'
 
 function Register({history}) {
     usePageTitle("Register")

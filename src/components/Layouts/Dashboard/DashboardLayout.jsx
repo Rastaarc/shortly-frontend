@@ -1,11 +1,11 @@
 import { useEffect, useState }from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import { Layout, message } from 'antd'
+import { Layout, message, Button } from 'antd'
 import {HeartFilled} from '@ant-design/icons'
-import { useUserLoggedIn, logoutAccount, useAccount } from '../../hooks/auth'
+import { useUserLoggedIn, logoutAccount, useAccount } from '../../../hooks/auth'
 import { APP_NAME, DEVELOPED_BY } from '../../../utilities/constants'
 import './DashboardLayout.less'
-import { USERTYPES } from '../../../utilities/constants'
+import { USERTYPES, SCREEN_TYPES } from '../../../utilities/constants'
 import {
     FaSignOutAlt,
     FaRegUserCircle,
@@ -14,6 +14,7 @@ import {
     FaUsers,
     FaLink,
 } from 'react-icons/fa'
+import { useScreenType } from '../../../hooks/windowSize'
 
 const {Header, Footer, Sider, Content } = Layout
 
@@ -47,6 +48,7 @@ const userMenu = menuItems.filter(item=>
 )
 
 function DashboardLayout({children}) {
+    const screenType = useScreenType()
     const userAccount = useAccount()
     const [loggedIn, setLoggedIn] = useUserLoggedIn()
     const [location, setLocation] = useState('')
@@ -125,10 +127,31 @@ function DashboardLayout({children}) {
             </Sider>
             <Layout>
                 <Header className="dashboard__header">
-                    <div className="header__logo">
+                    <div className="header__logo__mobile">
                         <Link to="/"><img src="images/logo__.png" alt="" /></Link>
                     </div>
-                    <div className="header__text">Header</div>
+                    <div className="header__content">
+                        {
+                            (location === 'dashboard') &&
+                            <Button type="primary" shape="round" size={(screenType >= SCREEN_TYPES.MOBILE_LARGE)? 'small': 'medium'}>
+                                <Link to="/links">
+                                    New Link
+                                </Link>
+                            </Button>
+                        }
+                    </div>
+                    <div className="header__user">
+                        <div className="user">
+                            <FaRegUserCircle/>
+                            <div className="profile">
+                                <p className="username">{userAccount.user.username}</p>
+                                <span className="email">{userAccount.user.email}</span>
+                            </div>
+                        </div>
+                        <div className="user__mobile">
+                            Mobile User
+                        </div>
+                    </div>
                 </Header>
                 <Layout>
                     <Content className="contents__container">{children}</Content>

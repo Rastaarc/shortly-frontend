@@ -2,9 +2,9 @@ import React from 'react'
 import SubscriptionsUser from './User/SubscriptionsUser'
 import SubscriptionsAdmin from './Admin/SubscriptionsAdmin'
 import { USERTYPES } from '../../utilities/constants'
-import { useAccount, useAuth } from '../../components/hooks/auth'
+import { useAccount, useAuth } from '../../hooks/auth'
 import DashboardLayout from '../../components/Layouts/Dashboard/DashboardLayout'
-import usePageTitle from '../../components/hooks/title'
+import usePageTitle from '../../hooks/title'
 
 
 

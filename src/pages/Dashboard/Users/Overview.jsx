@@ -1,11 +1,35 @@
+import {useState, useEffect} from 'react'
+import { useQuery } from '@apollo/client'
 import { FaLink, FaTachometerAlt } from 'react-icons/fa'
 import {Link} from 'react-router-dom'
+import { GET_USER_LINKS } from '../../../graphql/queries'
+import { useAccount } from '../../../hooks/auth'
 import './Overview.less'
 
 
-
+const loadErrorMessage = "Failed to load the data. Please try again"
 export default function Home() {
+    const account = useAccount()
+    const [linksData, setLinksData] = useState([])
+    const [errorOccured, setErrorOccurred] = useState(false)
 
+    const {loading, error, data} = useQuery(GET_USER_LINKS, {
+        variables:{
+            id: account.user.id
+        }
+    })
+    useEffect(() => {
+        if(!loading && !error){
+            if(data.getUserLinks){
+                setLinksData(data.getUserLinks)
+            }
+        }else if(error){
+            console.log(error.graphQLErrors)
+            console.log(error.networkError)
+            setErrorOccurred(true)
+        }
+        return () => {}
+    }, [loading,error, data])
     return (
         <div>
             <div className="overview">
@@ -46,6 +70,30 @@ export default function Home() {
                 <div className="contents">
                     <div className="card">
                         <h5 className="title">Latest Links</h5>
+                        {
+
+                            loading ?
+
+                                "Loading"
+
+                            :
+                            errorOccured ?
+                                loadErrorMessage
+                            :
+
+                                    linksData.map(l=>
+                                    {
+                                        return (<div className="links" key={l.id}><div className="link">
+                                            <a href={l.shortLink} target="_blank" rel="noreferrer">
+                                                {l.shortLink}
+                                            </a>
+                                            <span>{l.originalLink}</span>
+                                            </div>
+
+                                        </div>
+                                        )
+                                    })
+                        }
                     </div>
                     <div className="card">
                         <h5 className="title">Subscriptions</h5>

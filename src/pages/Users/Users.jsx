@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { useAccount, useAuth } from '../../components/hooks/auth'
-import usePageTitle from '../../components/hooks/title'
+import { useAccount, useAuth } from '../../hooks/auth'
+import usePageTitle from '../../hooks/title'
 import DashboardLayout from '../../components/Layouts/Dashboard/DashboardLayout'
 import { USERTYPES } from '../../utilities/constants'
 

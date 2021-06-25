@@ -46,3 +46,21 @@ export const LOGIN_ACCOUNT = gql`
             }
         }
 `
+
+
+export const GET_USER_LINKS = gql`
+        query GetUserLinks($id: Int!){
+            getUserLinks(userId: $id){
+                ...on LinksObject{
+                    id
+                    createdAt
+                    shortLink
+                    originalLink
+                }
+                ...on ErrorObject{
+                    message
+                    code
+                }
+            }
+        }
+`

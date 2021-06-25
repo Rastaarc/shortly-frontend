@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom'
 import { Layout, message } from 'antd'
 import { APP_NAME, DEVELOPED_BY } from '../../../utilities/constants'
 import { HeartFilled } from '@ant-design/icons'
-import { useAccount, useUserLoggedIn } from '../../hooks/auth'
+import { useAccount, useUserLoggedIn } from '../../../hooks/auth'
 const { Footer } = Layout
 
 function AuthLayout({children, match}) {

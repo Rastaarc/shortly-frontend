@@ -9,7 +9,7 @@ import AuthLayout from '../../../components/Layouts/Auth/AuthLayout'
 import './Login.less'
 import client from '../../../graphql/client'
 import { LOGIN_ACCOUNT } from '../../../graphql/queries'
-import usePageTitle from '../../../components/hooks/title'
+import usePageTitle from '../../../hooks/title'
 
 export default function Login({history}) {
 
@@ -50,6 +50,7 @@ export default function Login({history}) {
             }
 
         }).catch(e=>{
+            console.log(e)
             message.error("Error occurred while fetching your account",4)
         })
         setProcessingLogin(false)
