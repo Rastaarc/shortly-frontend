@@ -13,6 +13,7 @@ import {
     FaCreditCard,
     FaUsers,
     FaLink,
+    // FaArrowDown,
 } from 'react-icons/fa'
 import { useScreenType } from '../../../hooks/windowSize'
 
@@ -53,6 +54,7 @@ function DashboardLayout({children}) {
     const [loggedIn, setLoggedIn] = useUserLoggedIn()
     const [location, setLocation] = useState('')
     const [redirectToHome, setRedirectToHome] = useState(false)
+    const [showUserDropdown, setShowUserDropdown] = useState(false)
 
     useEffect(() => {
         setLocation(window.location.pathname.split('/')[1])
@@ -61,6 +63,9 @@ function DashboardLayout({children}) {
         }
     }, [location])
 
+    const toggleMobleDropdown = ()=>{
+        setShowUserDropdown(!showUserDropdown)
+    }
     const doLogout = ()=>{
         //e.preventDefault()
         if(logoutAccount()){
@@ -132,7 +137,7 @@ function DashboardLayout({children}) {
                     </div>
                     <div className="header__content">
                         {
-                            (location === 'dashboard') &&
+                            (location === 'dashboard' && userAccount.user.userType !== USERTYPES.ADMIN) &&
                             <Button type="primary" shape="round" size={(screenType >= SCREEN_TYPES.MOBILE_LARGE)? 'small': 'medium'}>
                                 <Link to="/links">
                                     New Link
@@ -149,7 +154,29 @@ function DashboardLayout({children}) {
                             </div>
                         </div>
                         <div className="user__mobile">
-                            Mobile User
+                           <FaRegUserCircle onClick={toggleMobleDropdown} className="user__icon"/>
+                           {/* <FaArrowDown/> */}
+                           <div className={showUserDropdown? 'dropdown show' : 'dropdown'}>
+                               <ul>
+                                   <li>
+                                       <p>
+                                        {userAccount.user.username}
+                                       </p>
+                                       {/* <span>
+                                           {userAccount.user.email}
+                                        </span> */}
+                                   </li>
+                                   <li>
+                                       <Button
+                                            size="small"
+                                            className="logout__btn"
+                                            onClick={doLogout}
+                                        >
+                                                Logout
+                                        </Button>
+                                    </li>
+                               </ul>
+                           </div>
                         </div>
                     </div>
                 </Header>

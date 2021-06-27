@@ -14,7 +14,7 @@
         padding: 0 20px;
         align-items: center;
         z-index: 1000;
-        height: 75px;
+        height: 60px;
         box-shadow: 0 1px 3px @shadow-color2;
     }
 
@@ -26,8 +26,8 @@
             display: block;
             order: 1;
             img{
-                height: 50px;
-                width: 50px;
+                height: 45px;
+                width: 45x;
             }
         }
     }
@@ -84,7 +84,63 @@
             display: none;
 
             @media(max-width: @mobile-large){
+                position: relative;
                 display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                width: 100%;
+                color: @primary-color;
+
+                .user__icon{
+                    font-size: 32px;
+                    cursor: pointer;
+                }
+
+                .dropdown{
+                    position: fixed;
+                    background-color: @primary-color;
+                    color: @white-color;
+                    border-radius: 5px;
+                    top: -100%;
+                    right: -1px;
+                    transform: translateX(-10%);
+                    width: 100px;
+                    max-width: 100px;
+                    min-width: 100px;
+                    box-shadow: 0 1px 0px @shadow-color3;
+                    overflow-x: scroll;
+                    transition: all 0.2s ease;
+
+                    &.show{
+                        transition: all 0.2s ease;
+                        top: 45px;
+                    }
+                    ul{
+                        list-style: none;
+                        padding: 2px 5px;
+                        margin: 0;
+
+                        li{
+                            text-align: center;
+                            line-height: 40px;
+                            p{
+                                margin: 0;
+                            }
+
+                            .logout__btn:hover{
+                                border: 1px solid @off-white-color;
+                                color: @off-white-color;
+                                background-color: transparent;
+                            }
+                            a{
+                                text-decoration: none;
+                            }
+                        }
+                        :first-child{
+                            border-bottom: 1px solid @off-white-color;
+                        }
+                    }
+                }
             }
 
 

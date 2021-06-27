@@ -1,0 +1,58 @@
+@import '../../lessVariables/variables';
+
+.header__title{
+    font-weight: 600;
+    font-size: 18px;
+    color: @secondary-color;
+}
+
+.new__link{
+    min-height: 60px;
+    background-color: @white-color;
+    border-radius: 3px;
+    border: 0;
+    box-shadow: 0 1px 5px @shadow-color3;
+    padding: 15px;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+form{
+    display: grid;
+    grid-template-columns: 3fr 0.6fr 0.9fr;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+
+    @media screen and (max-width: 660px) {
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+    }
+
+    input{
+        box-shadow: 0 1px 0px @shadow-color2;
+        outline: none;
+        border: none;
+        border-top: 1px solid @primary-color;
+        height: 40px;
+        padding-left: 10px;
+
+
+        &:focus{
+            box-shadow: 0 -1px 0px @shadow-color3;
+            border-top: none;
+            border-bottom: 1px solid @primary-color;
+            outline: none;
+        }
+
+        &:first-child{
+            margin-right: 8px;
+        }
+        &:last-child{
+            align-self: flex-start;
+            margin-right: 5px;
+        }
+    }
+
+}

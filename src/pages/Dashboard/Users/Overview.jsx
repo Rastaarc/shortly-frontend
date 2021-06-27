@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import { Spin } from 'antd'
 import { useQuery } from '@apollo/client'
 import { FaLink, FaTachometerAlt } from 'react-icons/fa'
 import {Link} from 'react-router-dom'
@@ -78,7 +79,7 @@ export default function Home() {
 
                             loading ?
 
-                                "Loading"
+                                <Spin tip="Loading Links"/>
 
                             :
                             errorOccured ?

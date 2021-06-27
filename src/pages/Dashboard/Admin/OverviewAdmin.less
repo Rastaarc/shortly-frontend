@@ -1,0 +1,19 @@
+.contents{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+
+    @media(max-width: 600px){
+        grid-template-columns: 1fr;
+        row-gap: 25px;
+    }
+}
+
+.overview .content .top svg{
+    font-size: 18px;
+
+    @media(max-width: 600px){
+        font-size: 30px;
+    }
+
+}

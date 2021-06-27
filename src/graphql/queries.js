@@ -20,6 +20,17 @@ export const CREATE_FREE_LINK = gql`
         }
 `;
 
+export const CREATE_PREMIUM_LINK = gql`
+        mutation CreatePremiumLink($oLink: String!, $keyword: String!){
+            createPremiumLink(userInput: {link: $oLink, keyword: $keyword}){
+                link{
+                    shortLink
+                }
+                message
+                ok
+            }
+        }
+`
 export const CREATE_ACCOUNT = gql`
         mutation CreateAccount($username: String!, $email: String!, $password: String!){
             createAccount(accountData: {username: $username, email: $email, password: $password}){
@@ -46,6 +57,9 @@ export const LOGIN_ACCOUNT = gql`
             }
         }
 `
+
+
+
 
 
 export const GET_USER_LINKS = gql`
