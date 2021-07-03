@@ -16,3 +16,11 @@ export const SCREEN_TYPES = {
     "MOBILE_MEDIUM": 5,
     "MOBILE_SMALL": 6
 }
+
+export const ITEMS_PER_PAGE = 10;
+
+export const MESSAGES = {
+    FETCH_FAILED: "Failed to fetch your data. Please try again",
+    DELETE_FAILED: "Failed to delete. Please try again",
+    NETWORK_ERROR: 'Request Failed. Network connection error'
+}

@@ -6,15 +6,21 @@
     color: @secondary-color;
 }
 
-.new__link{
-    min-height: 60px;
+.card{
     background-color: @white-color;
     border-radius: 3px;
     border: 0;
     box-shadow: 0 1px 5px @shadow-color3;
-    padding: 15px;
+    min-height: 60px;
     max-width: 100%;
     min-width: 100%;
+
+    @media(max-width: @mobile-large){
+        padding: 5px;
+    }
+}
+.new__link{
+    padding: 15px;
 }
 
 form{
@@ -48,6 +54,9 @@ form{
 
         &:first-child{
             margin-right: 8px;
+            @media(max-width: @mobile-large){
+                margin-right: 0;
+            }
         }
         &:last-child{
             align-self: flex-start;
@@ -55,4 +64,23 @@ form{
         }
     }
 
+}
+
+.links__datatable{
+    margin-top: 50px;
+
+    @media(max-width: @mobile-large){
+        margin-top: 30px;
+    }
+}
+
+.datatable__actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .card{
+        overflow-x: scroll;
+    }
 }

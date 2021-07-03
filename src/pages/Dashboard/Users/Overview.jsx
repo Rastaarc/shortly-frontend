@@ -1,39 +1,45 @@
 import {useState, useEffect} from 'react'
-import { Spin } from 'antd'
+import { Spin, message as alert } from 'antd'
 import { useQuery } from '@apollo/client'
 import { FaLink, FaTachometerAlt } from 'react-icons/fa'
 import {Link} from 'react-router-dom'
-import { GET_USER_LINKS } from '../../../graphql/queries'
+import { GET_USER_OVERVIEW_DATA } from '../../../graphql/queries'
 import { useAccount } from '../../../hooks/auth'
 import { FaEllipsisV } from 'react-icons/fa'
 import ListLink from '../../../components/General/ListItems/ListLink'
 
 import './Overview.less'
+import { MESSAGES } from '../../../utilities/constants'
 
-
-const loadErrorMessage = "Failed to load the data. Please try again"
 export default function Home() {
     const account = useAccount()
     const [linksData, setLinksData] = useState([])
-    const [errorOccured, setErrorOccurred] = useState(false)
-    //const [totalLinks, setTotalLinks] = useState(0)
+    //const [errorOccured, setErrorOccurred] = useState(false)
+    const [totalLinksCounter, setTotalLinksCounter] = useState(0)
+    const [totalClicksCounter, setTotalClicksCounter] = useState(0)
 
-    const {loading, error, data} = useQuery(GET_USER_LINKS, {
+    const {loading, error, data} = useQuery(GET_USER_OVERVIEW_DATA, {
         variables:{
-            id: account.user.id
-        }
+            id: account.user.id,
+            page: 1,
+            pageSize: 5
+        },
+        fetchPolicy: 'cache-and-network'
     })
     useEffect(() => {
         if(!loading && !error){
-            if(data.getUserLinks){
-                setLinksData(data.getUserLinks)
-            }
+            setLinksData(data.getUserLinks.links)
+            setTotalLinksCounter(data.totalLinks)
+            setTotalClicksCounter(data.totalClicks)
         }else if(error){
-            console.log(error.graphQLErrors)
-            console.log(error.networkError)
-            setErrorOccurred(true)
+            if(error.networkError){
+                alert.error(MESSAGES.NETWORK_ERROR)
+            }else if(error.graphQLErrors){
+                alert.error(MESSAGES.FETCH_FAILED)
+            }
+            //setErrorOccurred(true)
         }
-        return () => {}
+        // return () => {}
     }, [loading,error, data])
     return (
         <div>
@@ -47,7 +53,10 @@ export default function Home() {
                                 <FaLink/>
                             </div>
                             <h2 className="counter">
-                                17
+                                {
+                                loading ?
+                                <Spin/>: totalLinksCounter
+                                }
                             </h2>
                             <div className="down">
                                 <Link to="/links">Manage links...</Link>
@@ -61,7 +70,10 @@ export default function Home() {
                                 <FaTachometerAlt/>
                             </div>
                             <h2 className="counter">
-                                324
+                                 {
+                                loading ?
+                                <Spin/>: totalClicksCounter
+                                }
                             </h2>
                             <div className="down">
                                 <Link to="#">Clicks Analysis...</Link>
@@ -81,9 +93,6 @@ export default function Home() {
 
                                 <Spin tip="Loading Links"/>
 
-                            :
-                            errorOccured ?
-                                loadErrorMessage
                             :
                             linksData.length > 0 ?
                                 linksData.map(item => {

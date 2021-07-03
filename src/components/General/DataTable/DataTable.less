@@ -1,0 +1,59 @@
+@import '../../../lessVariables/variables';
+
+.ant-table-thead > tr > th{
+    background-color: transparent;
+    color: @secondary-color;
+}
+@media(max-width: @mobile-large){
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td{
+        padding: 5px 5px;
+        overflow-wrap: normal;
+    }
+
+    table{
+
+    }
+}
+
+
+.datatable__header{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px 15px;
+
+    .title{
+        width: 100%;
+        margin: 0;
+    }
+    .search__form{
+        width: 100%;
+        display: flex;
+        grid-template-columns: none;
+        position: relative;
+
+        input{
+            width: 100%;
+            border: 1px solid @primary-color;
+            border-radius: 5px;
+            height: 35px;
+            margin: 0;
+            background-color: transparent;
+            z-index: 2;
+            box-shadow: none;
+            padding-right: 20px;
+
+            &::placeholder{
+                color: @secondary-color;
+            }
+        }
+
+        .search__icon{
+            font-size: 15px;
+            color: fade(@primary-color,20);
+            position: absolute;
+            right: 0;
+            margin-right: 5px;
+        }
+    }
+}

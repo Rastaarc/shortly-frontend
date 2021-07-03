@@ -31,6 +31,16 @@ export const CREATE_PREMIUM_LINK = gql`
             }
         }
 `
+export const DELETE_LINK = gql`
+    mutation deleteLink($link: Int!){
+        deleteLink(linkId: $link){
+            status,
+            message
+        }
+    }
+`
+
+
 export const CREATE_ACCOUNT = gql`
         mutation CreateAccount($username: String!, $email: String!, $password: String!){
             createAccount(accountData: {username: $username, email: $email, password: $password}){
@@ -77,4 +87,48 @@ export const GET_USER_LINKS = gql`
                 }
             }
         }
+`
+export const GET_PAGINATED_USER_LINKS =gql`
+        query GetFullLinks($id: Int!, $page: Int, $pageSize: Int, $search: String){
+            getUserLinks(userId: $id, page: $page, perPage: $pageSize, search: $search){
+                ...on PaginatedLinksObject{
+                    page
+                    perPage
+                    total
+                    links{
+                        id
+                        createdAt
+                        shortLink
+                        originalLink
+                    }
+                }
+                ...on ErrorObject{
+                    message
+                    code
+                }
+            }
+        }
+
+`
+
+export const GET_USER_OVERVIEW_DATA =gql`
+        query GetOverviewData($id: Int!, $pageSize: Int){
+            getUserLinks(userId: $id, perPage: $pageSize){
+                ...on PaginatedLinksObject{
+                    links{
+                        id
+                        createdAt
+                        shortLink
+                        originalLink
+                    }
+                }
+                ...on ErrorObject{
+                    message
+                    code
+                }
+            }
+            totalLinks(userId: $id)
+            totalClicks(userId: $id)
+        }
+
 `

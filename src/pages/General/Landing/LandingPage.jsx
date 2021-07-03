@@ -102,7 +102,8 @@ export default function LandingPage() {
                       <Fade>
                         <input className="url__input"
                             id="url__input"
-                            type="text"
+                            type="url"
+                            required
                             placeholder="Type or paste a link to shorten"
                             value={urlValue}
                             onChange={(e) => updateUrlValue(e)}
@@ -182,16 +183,18 @@ export default function LandingPage() {
                       </div>
                       <div className="creator__details">
                         <h1 className="details__head">Creator</h1>
-                        <p className="details__body">
-                          Adelola, Kayode Samson
-                          <span>A 400L student of Better By Far University
-                            (University of Ilorin, Ilorin Kwara State Nigeria)
-                            studying Mathematics (BSc. Mathematics) and popularly known as <b>Rasta</b>.
-                            He a Graphics Designer, FullStack Developer using Python(Flask) for backend,
-                            NuxtJS(VueJs SSR) and React for Frontend. He is well equiped with modern frameworks
-                            both for frontend and backend.
-                            </span>
-                          </p>
+                        <Slide bottom>
+                          <p className="details__body">
+                            Adelola, Kayode Samson
+                            <span>A 400L student of Better By Far University
+                              (University of Ilorin, Ilorin Kwara State Nigeria)
+                              studying Mathematics (BSc. Mathematics) and popularly known as <b>Rasta</b>.
+                              He a Graphics Designer, FullStack Developer using Python(Flask) for backend,
+                              NuxtJS(VueJs SSR) and React for Frontend. He is well equiped with modern frameworks
+                              both for frontend and backend.
+                              </span>
+                            </p>
+                          </Slide>
                       </div>
                     </div>
                   </div>
