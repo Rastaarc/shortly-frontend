@@ -192,7 +192,7 @@ function LinksUser() {
             if(updateError){
                 alert.error(MESSAGES.UPDATE_FAILED)
             }
-    },[updateData, updateError])
+    },[pagination, refetch, updateData, updateError, userAccount.user.id])
 
     useEffect(()=>{
         let canUpdate = true
