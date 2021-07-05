@@ -1,17 +1,22 @@
 import React, {useEffect, useState, useRef} from 'react'
+import dateformat from 'dateformat'
 import { Button, message as alert, Modal } from 'antd'
 import {ExclamationCircleOutlined} from '@ant-design/icons'
+import UpdateModal from '../../../components/General/Modal/UpdateModal/UpdateModal'
 import DataTable from '../../../components/General/DataTable/DataTable'
 import client from '../../../graphql/client'
 import './LinksUser.less'
-import { CREATE_PREMIUM_LINK, DELETE_LINK, GET_PAGINATED_USER_LINKS } from '../../../graphql/queries'
-import { ITEMS_PER_PAGE } from '../../../utilities/constants'
+import { CREATE_PREMIUM_LINK, DELETE_LINK, GET_PAGINATED_USER_LINKS, UPDATE_LINK } from '../../../graphql/queries'
+import { ITEMS_PER_PAGE, SCREEN_TYPES } from '../../../utilities/constants'
 import {useAccount} from '../../../hooks/auth'
 import { useMutation, useQuery } from '@apollo/client'
 import { MESSAGES } from '../../../utilities/constants'
+import { useScreenType } from '../../../hooks/windowSize'
 
 const {confirm} = Modal
 function LinksUser() {
+    const st = useScreenType()
+
     const DataTableColumns = [
     {
         title: 'Original Link',
@@ -20,14 +25,17 @@ function LinksUser() {
         width: '30%',
         ellipsis: true,
         tooltips: true,
+        responsive: ['md'],
+        className: 'text--center',
         render: txt => <a href={txt} target="_blank" rel="noreferrer">{txt}</a>
     },
     {
         title: 'Short Link',
         dataIndex: 'shortLink',
         key: 'sLink',
-        width: '30%',
+        width: st >= SCREEN_TYPES.MOBILE_LARGE ? '' : '30%',
         ellipsis: true,
+        className: 'text--center',
         render: txt => <a href={txt} target="_blank" rel="noreferrer">{txt}</a>
     },
     {
@@ -36,6 +44,7 @@ function LinksUser() {
         align: 'center',
         // width: '20%',
         key: 'createdAt',
+        responsive: ['md']
     },
     {
         title: 'Actions',
@@ -44,7 +53,7 @@ function LinksUser() {
         render: (txt, record)=> {
             return (
             <div className="datatable__actions">
-                <a href="#i" onClick={(e)=>doAction(e, 'edit', record)}>Edit</a>
+                <a href="#i" onClick={(e)=>doAction(e, 'showEditModal', record)}>Edit</a>
                 <a href="#i" onClick={(e)=>doAction(e,'delete', record)}>Delete</a>
             </div>
         )}
@@ -65,6 +74,7 @@ function LinksUser() {
         }
     )
     const [deleteLink, {loading: deleteLoading, error: deleteError, data: deleteData}] = useMutation(DELETE_LINK)
+    const [updateLink, {loading: updateLoading, error: updateError, data: updateData}] = useMutation(UPDATE_LINK)
 
     const [originalLink, setOriginalLink] = useState('')
     const [linkKeyword, setLinkKeyword] = useState('')
@@ -79,6 +89,10 @@ function LinksUser() {
         pageSize: ITEMS_PER_PAGE,
         total: 0
     })
+
+    const [editData, setEditData] = useState({})
+    const [editModalState, setEditModalState] = useState(false)
+
     const originalLinkRef = useRef()
 
     const handleTableChange = async (pagination, filters, sorter)=>{
@@ -112,8 +126,9 @@ function LinksUser() {
     const doAction = (e,type, record)=>{
         e.preventDefault()
         switch(type){
-            case 'edit':
-                console.log('Edit Item');
+            case 'showEditModal':
+                setEditData(record)
+                setEditModalState(true)
                 break;
 
                 case 'delete':
@@ -138,68 +153,149 @@ function LinksUser() {
         }
     }
 
+    const doEdit = (data, type)=>{
+        switch(type){
+            case 'update':
+                updateLink(
+                    {
+                        variables:{
+                            linkId: data.id,
+                            oLink: data.originalLink,
+                            keyword: data.keyword
+                        }
+                    }
+                )
+                break;
+
+            case 'close':
+                setEditModalState(false)
+                break;
+
+            default:
+                return
+        }
+    }
+
+
     useEffect(()=>{
-        if(deleteData){
-            const {deleteLink : {status, message}} = deleteData
-            if(status === true){
-                alert.success(message)
-                refetch({id: userAccount.user.id, page: 1})
-            }else{
-                alert.error(message)
+            if(updateData){
+                const {updateLink : {ok, message}} = updateData
+                if(ok){
+                    alert.success(message)
+
+                    refetch({id: userAccount.user.id, page: pagination.current, pageSize: pagination.pageSize})
+                    setEditModalState(false)
+                }else{
+                    alert.error(message)
+                }
+            }
+            if(updateError){
+                alert.error(MESSAGES.UPDATE_FAILED)
+            }
+    },[updateData, updateError])
+
+    useEffect(()=>{
+        let canUpdate = true
+
+        if(canUpdate){
+            if(deleteData){
+                const {deleteLink : {status, message}} = deleteData
+                if(status === true){
+                    alert.success(message)
+                    refetch({id: userAccount.user.id, page: 1})
+                }else{
+                    alert.error(message)
+                }
             }
         }
+        return ()=> canUpdate = false
     },[deleteData, refetch, userAccount.user.id])
 
     useEffect(()=>{
-        if(deleteLoading){
-            setLoadingData(true)
-        }else{
-            if(loadingData) setLoadingData(false)
+        let canUpdate = true
+        if(canUpdate){
+            if(deleteLoading){
+                setLoadingData(true)
+            }else{
+                setLoadingData(false)
+            }
         }
+        return ()=> canUpdate = false
     },[deleteLoading, loadingData])
 
     useEffect(()=>{
-        if(deleteError) alert.error(deleteError.message)//alert.error(MESSAGES.DELETE_FAILED)
+        let canUpdate = true
+        if(canUpdate){
+            if(deleteError) alert.error(MESSAGES.DELETE_FAILED)//alert.error(deleteError.message)
+        }
+        return ()=> canUpdate = false
     },[deleteError])
 
     useEffect(()=>{
-        if(loading){
-            setLoadingData(true)
-        }else{
-            setLoadingData(false)
+        let canUpdate = true
+        if(canUpdate){
+            if(loading){
+                setLoadingData(true)
+            }else{
+                setLoadingData(false)
+            }
         }
+        return ()=> canUpdate = false
     }, [loading])
 
     useEffect(()=>{
-        if(data){
-            const {getUserLinks} = data
-            if(getUserLinks.code){
-                alert.error(getUserLinks.message)
-            }else if(getUserLinks.links.length > 0){
-                    setDataSource(getUserLinks.links.map(item=> ({...item, key: item.id})))
-                    setPagination(prevState =>({
-                                ...prevState,
-                                current: getUserLinks.page,
-                                pageSize: getUserLinks.perPage,
-                                total: getUserLinks.total
-                            })
-                        )
+        let canUpdate = true
+        if(canUpdate){
+            if(data){
+                const {getUserLinks} = data
+                if(getUserLinks.code){
+                    alert.error(getUserLinks.message)
+                }else if(getUserLinks.links.length > 0){
+                        setDataSource(getUserLinks.links.map(item=> (
+                            {
+                                ...item,
+                                key: item.id,
+                                createdAt: dateformat(new Date(item.createdAt), 'mediumDate'),
+                                expand: [
+                                    {
+                                        title: 'Original Link',
+                                        txt: <a href={item.originalLink} target="_blank" rel="noreferrer">{item.originalLink}</a>
+                                    },
+                                    {
+                                        title: 'Short Link',
+                                        txt: <a href={item.shortLink} target="_blank" rel="noreferrer">{item.shortLink}</a>//item.shortLink
+                                    },
+                                    {
+                                        title: 'Created At',
+                                        txt: dateformat(new Date(item.createdAt), 'fullDate'),
+                                    }
+                                ]
+                            }
+                            )))
+                        setPagination(prevState =>({
+                                    ...prevState,
+                                    current: getUserLinks.page,
+                                    pageSize: getUserLinks.perPage,
+                                    total: getUserLinks.total
+                                })
+                            )
+                }
             }
         }
+        return ()=> canUpdate = false
         
     },[data])
     
     useEffect(()=>{
-        if(error){
-            alert.error(MESSAGES.FETCH_FAILED)
+        let canUpdate = true
+        if(canUpdate){
+            if(error){
+                alert.error(MESSAGES.FETCH_FAILED)
+            }
         }
+        return ()=> canUpdate = false
     }, [error])
 
-    useEffect(()=>{
-        if(originalLinkRef.current){
-            originalLinkRef.current.focus()
-        }
-    },[originalLink])
 
     const shortenLink = (e)=>{
         e.preventDefault()
@@ -310,6 +406,12 @@ function LinksUser() {
                     />
                 </div>
             </div>
+            <UpdateModal
+                data={editData}
+                showModal={editModalState}
+                loading={updateLoading}
+                submitHandler={(data, type)=>doEdit(data, type)}
+            />
         </>
     )
 }

@@ -22,5 +22,6 @@ export const ITEMS_PER_PAGE = 10;
 export const MESSAGES = {
     FETCH_FAILED: "Failed to fetch your data. Please try again",
     DELETE_FAILED: "Failed to delete. Please try again",
+    UPDATE_FAILED: "Failed to update. Please try again",
     NETWORK_ERROR: 'Request Failed. Network connection error'
 }

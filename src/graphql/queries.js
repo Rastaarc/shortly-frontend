@@ -40,6 +40,16 @@ export const DELETE_LINK = gql`
     }
 `
 
+export const UPDATE_LINK = gql`
+    mutation UpdateLink($linkId: Int!, $oLink: String!, $keyword: String!){
+        updateLink(linkId: $linkId, oLink: $oLink, keyword: $keyword){
+            ok
+            message
+        }
+    }
+
+
+`
 
 export const CREATE_ACCOUNT = gql`
         mutation CreateAccount($username: String!, $email: String!, $password: String!){
