@@ -7,11 +7,11 @@ import { ApolloProvider } from '@apollo/client'
 import client from './graphql/client'
 
 ReactDOM.render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <ApolloProvider client={client}>
       <App />
-    </ApolloProvider>
-  </React.StrictMode>,
+    </ApolloProvider>,
+  ///</React.StrictMode>,
   document.getElementById('root')
 );
 
