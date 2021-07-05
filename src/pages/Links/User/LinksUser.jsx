@@ -312,13 +312,15 @@ function LinksUser() {
             }).then(result=>{
                 setProcessingForm(false)
 
-                const {data: {createPremiumLink: {link:{shortLink}, message, ok}}} = result
+                const {data: {createPremiumLink: {link, ok,message}}} = result
                 if(ok){
                     refetch({id: userAccount.user.id, page: 1})
 
                     setCanCopyLink(true)
                     const shortenLinkHolder = document.getElementById("input__url")
-                    shortenLinkHolder.value = shortLink
+
+                    
+                    shortenLinkHolder.value = link.shortLink
                     shortenLinkHolder.select(); //select the input value
 
                     setShortenBtnText('Copy')
@@ -328,11 +330,13 @@ function LinksUser() {
                     alert.success(message)
 
                 }else{
+                    setShortenBtnText("Shorten It")
                     alert.error(message)
                 }
 
             }).catch(e=>{
                 setProcessingForm(false)
+                setShortenBtnText("Shorten It")
                 console.log(e);
                 alert.error("Error Occurred while creating your link")
             })
