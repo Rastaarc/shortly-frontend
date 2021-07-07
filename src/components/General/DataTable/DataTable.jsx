@@ -2,11 +2,8 @@ import React, {useState} from 'react'
 import {Table } from 'antd'
 import { FaSearch } from 'react-icons/fa'
 import './DataTable.less'
-import { useScreenType } from '../../../hooks/windowSize'
-import { SCREEN_TYPES } from '../../../utilities/constants'
 
 function DataTable(props) {
-    const st = useScreenType()
     const [searchValue, setSearchValue] = useState('')
     const searchHandler = (e)=>{
         e.preventDefault()
@@ -50,7 +47,7 @@ function DataTable(props) {
                                 }
                             </div>
                         ),
-                    rowExpandable: record=> st >= SCREEN_TYPES.MOBILE_LARGE? true : false
+                    rowExpandable: record=> record.expand? true : false
 
                 }}
             />
