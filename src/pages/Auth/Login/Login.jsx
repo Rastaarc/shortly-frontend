@@ -10,10 +10,13 @@ import './Login.less'
 import client from '../../../graphql/client'
 import { LOGIN_ACCOUNT } from '../../../graphql/queries'
 import usePageTitle from '../../../hooks/title'
+import {Helmet} from 'react-helmet'
+import { META_GEN } from '../../../utilities/constants'
 
 export default function Login({history}) {
 
     usePageTitle("Login")
+
 
     const [emailOrUsername, setEmailOrUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -59,6 +62,9 @@ export default function Login({history}) {
     return (
         <>
            <AuthLayout>
+               <Helmet>
+                   <meta name="description" content={META_GEN('Login Page')}/>
+               </Helmet>
                <div className="auth__body-wrapper">
                    <div className="auth__heading-text">
                         LOGIN

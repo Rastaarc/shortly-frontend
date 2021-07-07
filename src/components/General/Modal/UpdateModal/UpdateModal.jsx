@@ -11,6 +11,7 @@ function UpdateModal({data={}, showModal=false, submitHandler, loading=false}) {
 
         return () => {}
     }, [data.originalLink, data.shortLink])
+    
     const handleSubmit = (type)=>{
 
         const newData = {
@@ -27,7 +28,6 @@ function UpdateModal({data={}, showModal=false, submitHandler, loading=false}) {
 
         return (!validKeyword || !validUrl)
     }
-
 
     return (
         <>
