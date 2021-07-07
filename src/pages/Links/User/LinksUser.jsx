@@ -26,7 +26,7 @@ function LinksUser() {
         ellipsis: true,
         tooltips: true,
         responsive: ['md'],
-        className: 'text--center',
+        //className: 'text--center',
         render: txt => <a href={txt} target="_blank" rel="noreferrer">{txt}</a>
     },
     {
@@ -35,7 +35,7 @@ function LinksUser() {
         key: 'sLink',
         width: st >= SCREEN_TYPES.MOBILE_LARGE ? '' : '30%',
         ellipsis: true,
-        className: 'text--center',
+        //className: 'text--center',
         render: txt => <a href={txt} target="_blank" rel="noreferrer">{txt}</a>
     },
     {
@@ -113,6 +113,7 @@ function LinksUser() {
         setLoadingData(false)
 
     }
+
     const handleSearch = async (val)=>{
         setDataSource([])
         setLoadingData(true)
@@ -176,7 +177,6 @@ function LinksUser() {
         }
     }
 
-
     useEffect(()=>{
             if(updateData){
                 const {updateLink : {ok, message}} = updateData
@@ -226,7 +226,7 @@ function LinksUser() {
     useEffect(()=>{
         let canUpdate = true
         if(canUpdate){
-            if(deleteError) alert.error(MESSAGES.DELETE_FAILED)//alert.error(deleteError.message)
+            if(deleteError) alert.error(MESSAGES.DELETE_FAILED)
         }
         return ()=> canUpdate = false
     },[deleteError])
