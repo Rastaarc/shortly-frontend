@@ -10,9 +10,17 @@ import { Link } from 'react-router-dom'
 import client from '../../../graphql/client'
 import { CREATE_ACCOUNT } from '../../../graphql/queries'
 import usePageTitle from '../../../hooks/title'
+//import { META_GEN } from '../../../utilities/constants'
+//import useMeta from '../../../hooks/meta'
 
 function Register({history}) {
     usePageTitle("Register")
+
+    //  const meta_data = [
+    //     {name: 'description', content: META_GEN('Register Page')}
+    // ]
+    // useMeta(meta_data)
+
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')

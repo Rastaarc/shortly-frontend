@@ -40,6 +40,15 @@ export const DELETE_LINK = gql`
     }
 `
 
+export const DELETE_USER = gql`
+    mutation deleteUser($id: Int!){
+        deleteUser(id: $id){
+            status,
+            message
+        }
+    }
+`
+
 export const UPDATE_LINK = gql`
     mutation UpdateLink($linkId: Int!, $oLink: String!, $keyword: String!){
         updateLink(linkId: $linkId, oLink: $oLink, keyword: $keyword){
@@ -120,6 +129,55 @@ export const GET_PAGINATED_USER_LINKS =gql`
         }
 
 `
+export const GET_PAGINATED_ADMIN_LINKS =gql`
+        query GetFullLinks($page: Int, $pageSize: Int, $search: String){
+            getAllLinks(page: $page, perPage: $pageSize, search: $search){
+                ...on PaginatedLinksObject{
+                    page
+                    perPage
+                    total
+                    links{
+                        id
+                        createdAt
+                        shortLink
+                        originalLink
+                        createdBy{
+                            username
+                            email
+                            joinDate
+                        }
+                    }
+                }
+                ...on ErrorObject{
+                    message
+                    code
+                }
+            }
+        }
+
+`
+export const GET_PAGINATED_ADMIN_USERS =gql`
+        query GetFullUsers($page: Int, $pageSize: Int, $search: String){
+            getAllUsers(page: $page, perPage: $pageSize, search: $search){
+                ...on PaginatedUsersObject{
+                    page
+                    perPage
+                    total
+                    users{
+                        id
+                        username
+                        email
+                        joinDate
+                    }
+                }
+                ...on ErrorObject{
+                    message
+                    code
+                }
+            }
+        }
+
+`
 
 export const GET_USER_OVERVIEW_DATA =gql`
         query GetOverviewData($id: Int!, $pageSize: Int){
@@ -139,6 +197,28 @@ export const GET_USER_OVERVIEW_DATA =gql`
             }
             totalLinks(userId: $id)
             totalClicks(userId: $id)
+        }
+
+`
+export const GET_ADMIN_OVERVIEW = gql`
+        query GetOverviewData($pageSize: Int){
+            getAllLinks(perPage: $pageSize){
+                ...on PaginatedLinksObject{
+                    links{
+                        id
+                        createdAt
+                        shortLink
+                        originalLink
+                    }
+                }
+                ...on ErrorObject{
+                    message
+                    code
+                }
+            }
+            totalLinks
+            totalClicks
+            totalUsers
         }
 
 `
